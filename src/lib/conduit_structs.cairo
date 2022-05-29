@@ -7,19 +7,19 @@
 #      offer items that can be spent along with consideration items that must
 #      be received by their respective recipient.
 struct OrderComponents:
-    offerer: felt  # address
-    zone: felt     # address
-    offer_len: felt
-    offer: *OfferItem
-    consideration_len: felt
-    consideration: *ConsiderationItem
-    order_type: felt  # OrderType
-    start_time: felt
-    end_time: felt
-    zone_hash: felt  # bytes32
-    salt: felt
-    conduit_key: felt  # bytes32
-    nonce: felt
+    member offerer: felt  # address
+    member zone: felt     # address
+    member offer_len: felt
+    member offer: *OfferItem
+    member consideration_len: felt
+    member consideration: *ConsiderationItem
+    member order_type: felt  # OrderType
+    member start_time: felt
+    member end_time: felt
+    member zone_hash: felt  # bytes32
+    member salt: felt
+    member conduit_key: felt  # bytes32
+    member nonce: felt
 end
 
 
@@ -31,11 +31,11 @@ end
 #      increasing or decreasing amounts over the duration of the respective
 #      order.
 struct OfferItem:
-    item_type: felt  # ItemType
-    token: felt  # address
-    identifier_or_criteria: felt
-    start_amount: felt
-    end_amount: felt
+    member item_type: felt  # ItemType
+    member token: felt  # address
+    member identifier_or_criteria: felt
+    member start_amount: felt
+    member end_amount: felt
 end
 
 
@@ -43,12 +43,12 @@ end
 #      an additional sixth component designating the required recipient of the
 #      item.
 struct ConsiderationItem:
-    item_type: felt  # ItemType
-    token: felt  # address
-    identifier_or_criteria: felt
-    start_amount: felt
-    end_amount: felt
-    recipient: felt  # address
+    member item_type: felt  # ItemType
+    member token: felt  # address
+    member identifier_or_criteria: felt
+    member start_amount: felt
+    member end_amount: felt
+    member recipient: felt  # address
 end
 
 
@@ -56,10 +56,10 @@ end
 #      components: an item type (ETH or other native tokens, ERC20, ERC721, and
 #      ERC1155), a token address, a tokenId, and an amount.
 struct SpentItem:
-    item_type: felt  # ItemType
-    token: felt  # address
-    identifier: felt
-    amount: felt
+    member item_type: felt  # ItemType
+    member token: felt  # address
+    member identifier: felt
+    member amount: felt
 end
 
 
@@ -67,11 +67,11 @@ end
 #      the same four components as a spent item, as well as an additional fifth
 #      component designating the required recipient of the item.
 struct ReceivedItem:
-    item_type: felt  # ItemType
-    token: felt  # address
-    identifier: felt
-    amount: felt
-    recipient: felt  # address
+    member item_type: felt  # ItemType
+    member token: felt  # address
+    member identifier: felt
+    member amount: felt
+    member recipient: felt  # address
 end
 
 
@@ -82,26 +82,26 @@ end
 #      of the basic order (a simple derivation function for the basic order
 #      type is `basicOrderType = orderType + (4 * basicOrderRoute)`.)
 struct BasicOrderParameters:
-    consideration_token: felt  # address
-    consideration_identifier: felt
-    consideration_amount: felt
-    offerer: felt  # felt
-    zone: felt  # address
-    offer_token: felt  # address
-    offer_identifier: felt
-    offer_amount: felt
-    basic_order_type: felt  # BasicOrderType
-    start_time: felt
-    end_time: felt
-    zone_hash: felt  # bytes32
-    salt: felt
-    offerer_conduit_key: felt  # bytes32
-    fulfiller_conduit_key: felt  # bytes32
-    total_original_additional_recipients: felt
-    additional_recipients_len: felt
-    additional_recipients: *AdditionalRecipient
-    signature_len: felt
-    signature: *felt  # bytes
+    member consideration_token: felt  # address
+    member consideration_identifier: felt
+    member consideration_amount: felt
+    member offerer: felt  # felt
+    member zone: felt  # address
+    member offer_token: felt  # address
+    member offer_identifier: felt
+    member offer_amount: felt
+    member basic_order_type: felt  # BasicOrderType
+    member start_time: felt
+    member end_time: felt
+    member zone_hash: felt  # bytes32
+    member salt: felt
+    member offerer_conduit_key: felt  # bytes32
+    member fulfiller_conduit_key: felt  # bytes32
+    member total_original_additional_recipients: felt
+    member additional_recipients_len: felt
+    member additional_recipients: *AdditionalRecipient
+    member signature_len: felt
+    member signature: *felt  # bytes
 end
 
 
@@ -109,8 +109,8 @@ end
 #      implied assumption that they are supplied from the offered ETH (or other
 #      native token) or ERC20 token for the order.
 struct AdditionalRecipient:
-    amount: felt
-    recipient: felt  # address
+    member amount: felt
+    member recipient: felt  # address
 end
 
 
@@ -119,28 +119,28 @@ end
 #      orders. The total number of original consideration items must also be
 #      supplied, as the caller may specify additional consideration items.
 struct OrderParameters:
-    offerer: felt  # address
-    zone: felt     # address
-    offer_len: felt
-    offer: *OfferItem
-    consideration_len: felt
-    consideration: *ConsiderationItem
-    order_type: felt  # OrderType
-    start_time: felt
-    end_time: felt
-    zone_hash: felt  # bytes32
-    salt: felt
-    conduit_key: felt  # bytes32
-    total_original_consideration_items: felt
-    # offer.length
+    member offerer: felt  # address
+    member zone: felt     # address
+    member offer_len: felt
+    member offer: *OfferItem
+    member consideration_len: felt
+    member consideration: *ConsiderationItem
+    member order_type: felt  # OrderType
+    member start_time: felt
+    member end_time: felt
+    member zone_hash: felt  # bytes32
+    member salt: felt
+    member conduit_key: felt  # bytes32
+    member total_original_consideration_items: felt
+    member # offer.length
 end
 
 
 # @dev Orders require a signature in addition to the other order parameters.
 struct Order:
-    parameters: OrderParameters
-    signature_len: felt
-    signature: *felt  # bytes
+    member parameters: OrderParameters
+    member signature_len: felt
+    member signature: *felt  # bytes
 end
 
 
@@ -151,13 +151,13 @@ end
 #      `isValidOrderIncludingExtraData` on the zone for the order if the order
 #      type is restricted and the offerer or zone are not the caller.
 struct AdvancedOrder:
-    parameters: OrderParameters
-    numerator: felt    # uint120
-    denominator: felt  # uint120
-    signature_len: felt
-    signature: *felt  # bytes
-    extra_data_len: felt
-    extra_data: *felt  # bytes
+    member parameters: OrderParameters
+    member numerator: felt    # uint120
+    member denominator: felt  # uint120
+    member signature_len: felt
+    member signature: *felt  # bytes
+    member extra_data_len: felt
+    member extra_data: *felt  # bytes
 end
 
 
@@ -167,10 +167,10 @@ end
 #      partially or fully filled (with the fraction filled represented by a
 #      numerator and denominator).
 struct OrderStatus:
-    is_validated: felt
-    is_cancelled: felt
-    numerator: felt    # uint120
-    denominator: felt  # uint120
+    member is_validated: felt
+    member is_cancelled: felt
+    member numerator: felt    # uint120
+    member denominator: felt  # uint120
 end
 
 
@@ -179,12 +179,12 @@ end
 #      alongside a merkle proof demonstrating the identifier meets the required
 #      criteria.
 struct CriteriaResolver:
-    order_index: felt
-    side: felt  # Side
-    index: felt
-    identifier: felt
-    criteria_proof_len: felt
-    criteria_proof: *felt  # bytes32
+    member order_index: felt
+    member side: felt  # Side
+    member index: felt
+    member identifier: felt
+    member criteria_proof_len: felt
+    member criteria_proof: *felt  # bytes32
 end
 
 
@@ -197,18 +197,18 @@ end
 #      token, type, tokenId, and conduit preference) as well as across all
 #      consideration items (token, type, tokenId, and recipient).
 struct Fulfillment:
-    offer_components_len: felt
-    offerComponents: *FulfillmentComponent
-    consideration_components_len: felt
-    consideration_components: *FulfillmentComponent
+    member offer_components_len: felt
+    member offerComponents: *FulfillmentComponent
+    member consideration_components_len: felt
+    member consideration_components: *FulfillmentComponent
 end
 
 
 # @dev Each fulfillment component contains one index referencing a specific
 #      order and another referencing a specific offer or consideration item.
 struct FulfillmentComponent:
-    order_index: felt
-    item_index: felt
+    member order_index: felt
+    member item_index: felt
 end
 
 
@@ -221,7 +221,7 @@ end
 #      executions will be less than or equal to the total number of indicated
 #      fulfillments) and returned as part of `matchOrders`.
 struct Execution:
-    item: felt         # ReceivedItem
-    offerer: felt      # address
-    conduit_key: felt  # bytes32
+    member item: felt         # ReceivedItem
+    member offerer: felt      # address
+    member conduit_key: felt  # bytes32
 end
