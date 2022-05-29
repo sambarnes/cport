@@ -20,6 +20,6 @@ namespace ZoneInterface:
         pre_order_hashes: *felt,  # bytes32
         criteria_resolvers_len: felt,
         criteria_resolvers: *CriteriaResolver,
-    ) -> (valid_order_magic_value):  # bytes4
+    ) -> (valid_order_magic_value: felt):  # bytes4
     end
 end
