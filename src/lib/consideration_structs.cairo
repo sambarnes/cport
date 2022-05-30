@@ -11,10 +11,10 @@ struct OrderComponents:
     member zone: felt  # address
 
     member offer_len: felt
-    member offer: *OfferItem
+    member offer: OfferItem*
 
     member consideration_len: felt
-    member consideration: *ConsiderationItem
+    member consideration: ConsiderationItem*
 
     member order_type: felt  # OrderType enum
     member start_time: felt
@@ -102,9 +102,9 @@ struct BasicOrderParameters:
     member fulfiller_conduit_key: felt  # bytes32
     member total_original_additional_recipients: felt
     member additional_recipients_len: felt
-    member additional_recipients: *AdditionalRecipient
+    member additional_recipients: AdditionalRecipient*
     member signature_len: felt
-    member signature: *felt  # bytes
+    member signature: felt*  # bytes
 end
 
 
@@ -126,9 +126,9 @@ struct OrderParameters:
     member zone: felt  # address
 
     member offer_len: felt
-    member offer: *OfferItem
+    member offer: OfferItem*
     member consideration_len: felt
-    member consideration: *ConsiderationItem
+    member consideration: ConsiderationItem*
 
     member order_type: felt  # OrderType
     member start_time: felt
@@ -145,7 +145,7 @@ end
 struct Order:
     member parameters: OrderParameters
     member signature_len: felt
-    member signature: *felt  # bytes
+    member signature: felt*  # bytes
 end
 
 
@@ -161,9 +161,9 @@ struct AdvancedOrder:
     member denominator: felt  # uint120
 
     member signature_len: felt
-    member signature: *felt  # bytes
+    member signature: felt*  # bytes
     member extra_data_len: felt
-    member extra_data: *felt  # bytes
+    member extra_data: felt*  # bytes
 end
 
 
@@ -190,7 +190,7 @@ struct CriteriaResolver:
     member index: felt
     member identifier: felt
     member criteria_proof_len: felt
-    member criteria_proof: *felt  # bytes32[]
+    member criteria_proof: felt*  # bytes32[]
 end
 
 
@@ -204,9 +204,9 @@ end
 #      consideration items (token, type, tokenId, and recipient).
 struct Fulfillment:
     member offer_components_len: felt
-    member offer_components: *FulfillmentComponent
+    member offer_components: FulfillmentComponent*
     member consideration_components_len: felt
-    member consideration_components: *FulfillmentComponent
+    member consideration_components: FulfillmentComponent*
 end
 
 

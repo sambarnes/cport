@@ -57,7 +57,7 @@ namespace SeaportInterface:
     #
     # @return fulfilled A boolean indicating whether the order has been
     #                   successfully fulfilled.
-    func fulfillOrder(order: Order, fulfiller_conduit_key: felt) -> (fulfilled: felt):
+    func fulfill_order(order: Order, fulfiller_conduit_key: felt) -> (fulfilled: felt):
     end
 
     # @notice Fill an order, fully or partially, with an arbitrary number of
@@ -95,11 +95,11 @@ namespace SeaportInterface:
     #
     # @return fulfilled A boolean indicating whether the order has been
     #                   successfully fulfilled.
-    func fulfillAdvancedOrder(
+    func fulfill_advanced_order(
         advanced_order: AdvancedOrder,
-        criteria_resolvers_len: felt
-        criteria_resolvers: *CriteriaResolver,
-        fulfiller_conduit_key: felt,
+        criteria_resolvers_len: felt,
+        criteria_resolvers: CriteriaResolver*,
+        fulfiller_conduit_key: felt
     ) -> (fulfilled: felt):
     end
 
@@ -146,18 +146,18 @@ namespace SeaportInterface:
     #                          orders.
     func fulfill_available_orders(
         orders_len: felt,
-        orders: *Order,
+        orders: Order*,
         offer_fulfillments_len: felt,
-        offer_fulfillments: *FulfillmentComponent,  # TODO: How to 2D array?
+        offer_fulfillments: FulfillmentComponent*,  # TODO: How to 2D array?
         consideration_fulfillments_len: felt,
-        consideration_fulfillments: *FulfillmentComponent,  # TODO: How to 2D array?
+        consideration_fulfillments: FulfillmentComponent*,  # TODO: How to 2D array?
         fulfiller_conduit_key: felt,
-        maximumFulfilled: felt,
+        maximumFulfilled: felt
     ) -> (
         available_orders_len: felt,
-        available_orders: *felt,
+        available_orders: felt*,
         executions_len: felt,
-        executions: *Execution,
+        executions: Execution*
     ):
     end
 
@@ -222,20 +222,20 @@ namespace SeaportInterface:
     #                           orders.
     func fulfill_available_advanced_orders(
         advanced_orders_len: felt,
-        advanced_orders: *AdvancedOrder,
+        advanced_orders: AdvancedOrder*,
         criteria_resolvers_len: felt,
-        criteria_resolvers: *CriteriaResolver,
+        criteria_resolvers: CriteriaResolver*,
         offer_fulfillments_len: felt,
-        offer_fulfillments: *FulfillmentComponent,  # TODO: How to 2D array?
+        offer_fulfillments: FulfillmentComponent*,  # TODO: How to 2D array?
         consideration_fulfillments_len: felt,
-        consideration_fulfillments: *FulfillmentComponent,  # TODO: How to 2D array?
+        consideration_fulfillments: FulfillmentComponent*,  # TODO: How to 2D array?
         fulfiller_conduit_key: felt,
-        maximumFulfilled: felt,
+        maximumFulfilled: felt
     ) -> (
         available_orders_len: felt,
-        available_orders: *felt,
+        available_orders: felt*,
         executions_len: felt,
-        executions: *Execution,
+        executions: Execution*
     ):
     end
 
@@ -262,11 +262,11 @@ namespace SeaportInterface:
     #                    orders.
     func match_orders(
         orders_len: felt,
-        orders: *Order,
+        orders: Order*,
         fulfillments_len: felt,
-        fulfillments: *Fulfillment,
+        fulfillments: Fulfillment*
     ) -> (
-        executions_len: felt, executions: *Execution
+        executions_len: felt, executions: Execution*
     ):
     end
 
@@ -306,13 +306,13 @@ namespace SeaportInterface:
     #                    orders.
     func match_advanced_orders(
         orders_len: felt,
-        orders: *AdvancedOrder,
+        orders: AdvancedOrder*,
         criteria_resolvers_len: felt,
-        criteria_resolvers: *CriteriaResolvers,
+        criteria_resolvers: CriteriaResolvers*,
         fulfillments_len: felt,
-        fulfillments: *Fulfillment,
+        fulfillments: Fulfillment*
     ) -> (
-        executions_len: felt, executions: *Execution
+        executions_len: felt, executions: Execution*
     ):
     end
 
@@ -325,7 +325,7 @@ namespace SeaportInterface:
     #
     # @return cancelled A boolean indicating whether the supplied orders have
     #                   been successfully cancelled.
-    func cancel(orders_len: felt, orders: *OrderComponents) -> (cancelled: felt):
+    func cancel(orders_len: felt, orders: OrderComponents*) -> (cancelled: felt):
     end
 
     # @notice Validate an arbitrary number of orders, thereby registering their
@@ -341,7 +341,7 @@ namespace SeaportInterface:
     #
     # @return validated A boolean indicating whether the supplied orders have
     #                   been successfully validated.
-    func validate(orders_len: felt, orders: *Order) -> (validated: felt):
+    func validate(orders_len: felt, orders: Order*) -> (validated: felt):
     end
 
     # @notice Cancel all orders from a given offerer with a given zone in bulk

@@ -17,9 +17,9 @@ namespace ZoneInterface:
         caller: felt,  # address
         order: AdvancedOrder,
         pre_order_hashes_len: felt,
-        pre_order_hashes: *felt,  # bytes32
+        pre_order_hashes: felt*,  # bytes32
         criteria_resolvers_len: felt,
-        criteria_resolvers: *CriteriaResolver,
+        criteria_resolvers: CriteriaResolver*,
     ) -> (valid_order_magic_value: felt):  # bytes4
     end
 end

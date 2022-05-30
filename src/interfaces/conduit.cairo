@@ -6,10 +6,7 @@ from src.lib.conduit_structs import ConduitTransfer, ConduitBatch1155Transfer
 # @param channel The channel that has been updated.
 # @param open    A boolean indicating whether the conduit is open or not.
 @event
-func ChannelUpdated(
-    channel: felt,  # address
-    open: felt,     # bool
-):
+func ChannelUpdated(channel: felt, open: felt):
 end
 
 
@@ -26,9 +23,9 @@ namespace ConduitInterface:
     #
     # @return magicValue A magic value indicating that the transfers were
     #                    performed successfully.
-    func execute(ConduitTransfer[] calldata transfers)
+    func execute(
         conduit_transfers_len: felt,
-        conduit_transfers: *ConduitTransfer
+        conduit_transfers: ConduitTransfer*
     ) -> (magic_value: felt):  # bytes4
     end
     
@@ -39,9 +36,9 @@ namespace ConduitInterface:
     #
     # @return magicValue A magic value indicating that the transfers were
     #                    performed successfully.
-    func executeBatch1155(
+    func execute_batch_1155(
         batch_1155_transfers_len: felt,
-        batch_1155_transfers: *ConduitBatch1155Transfer
+        batch_1155_transfers: ConduitBatch1155Transfer*
     ) -> (magic_value: felt):  # bytes4
     end
 
@@ -54,11 +51,11 @@ namespace ConduitInterface:
     #
     # @return magicValue A magic value indicating that the transfers were
     #                    performed successfully.
-    func executeWithBatch1155(
+    func execute_with_batch_1155(
         standard_transfers_len: felt,
-        standard_transfers: *ConduitTransfer,
+        standard_transfers: ConduitTransfer*,
         batch_1155_transfers_len: felt,
-        batch_1155_transfers: *ConduitBatch1155Transfer,
+        batch_1155_transfers: ConduitBatch1155Transfer*
     ) -> (magic_value: felt):  # bytes4
     end
 
@@ -67,7 +64,7 @@ namespace ConduitInterface:
     #
     # @param channel The channel to open or close.
     # @param isOpen  The status of the channel (either open or closed).
-    func updateChannel(address channel, bool isOpen):
+    func update_channel(channel: felt, is_open: felt):
     end
 
     #
