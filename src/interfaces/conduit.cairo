@@ -1,4 +1,6 @@
-from src.lib.conduit_structs import ConduitTransfer, ConduitBatch1155Transfer
+%lang starknet
+
+from src.conduit.structs import ConduitTransfer, ConduitBatch1155Transfer
 
 
 # @dev Emit an event whenever a channel is opened or closed.
@@ -26,9 +28,11 @@ namespace ConduitInterface:
     func execute(
         conduit_transfers_len: felt,
         conduit_transfers: ConduitTransfer*
-    ) -> (magic_value: felt):  # bytes4
+    ) -> (magic_value: felt):
     end
     
+    # TODO: "Only pointers to types that consist of felts are supported."
+    #
     # @notice Execute a sequence of batch 1155 transfers. Only a caller with an
     #         open channel can call this function.
     #
@@ -36,13 +40,15 @@ namespace ConduitInterface:
     #
     # @return magicValue A magic value indicating that the transfers were
     #                    performed successfully.
-    func execute_batch_1155(
-        batch_1155_transfers_len: felt,
-        batch_1155_transfers: ConduitBatch1155Transfer*
-    ) -> (magic_value: felt):  # bytes4
-    end
+    # func execute_batch_1155(
+    #     batch_1155_transfers_len: felt,
+    #     batch_1155_transfers: ConduitBatch1155Transfer*
+    # ) -> (magic_value: felt):
+    # end
 
     
+    # TODO: "Only pointers to types that consist of felts are supported."
+    #
     # @notice Execute a sequence of transfers, both single and batch 1155. Only
     #         a caller with an open channel can call this function.
     #
@@ -51,13 +57,13 @@ namespace ConduitInterface:
     #
     # @return magicValue A magic value indicating that the transfers were
     #                    performed successfully.
-    func execute_with_batch_1155(
-        standard_transfers_len: felt,
-        standard_transfers: ConduitTransfer*,
-        batch_1155_transfers_len: felt,
-        batch_1155_transfers: ConduitBatch1155Transfer*
-    ) -> (magic_value: felt):  # bytes4
-    end
+    # func execute_with_batch_1155(
+    #     standard_transfers_len: felt,
+    #     standard_transfers: ConduitTransfer*,
+    #     batch_1155_transfers_len: felt,
+    #     batch_1155_transfers: ConduitBatch1155Transfer*
+    # ) -> (magic_value: felt):
+    # end
 
     
     # @notice Open or close a given channel. Only callable by the controller.
@@ -66,26 +72,27 @@ namespace ConduitInterface:
     # @param isOpen  The status of the channel (either open or closed).
     func update_channel(channel: felt, is_open: felt):
     end
-
-    #
-    # TODO: where to add these errors? idk if they can go in namespaces, probably
-    # need consts elsewhere instead
-    #
-
-    # @dev Revert with an error when attempting to execute transfers using a
-    #      caller that does not have an open channel.
-    # error ChannelClosed();
-    
-    # @dev Revert with an error when attempting to execute a transfer for an
-    #      item that does not have an ERC20/721/1155 item type.
-    # error InvalidItemType();
-    
-    # @dev Revert with an error when attempting to update the status of a
-    #      channel from a caller that is not the conduit controller.
-    # error InvalidController();
-    
-    # @dev Revert with an error when attempting to execute an 1155 batch
-    #      transfer using calldata not produced by default ABI encoding or with
-    #      different lengths for ids and amounts arrays.
-    # error Invalid1155BatchTransferEncoding();
 end
+
+
+#
+# TODO: where to add these errors? idk if they can go in namespaces, probably
+# need consts elsewhere instead
+#
+
+# @dev Revert with an error when attempting to execute transfers using a
+#      caller that does not have an open channel.
+# error ChannelClosed();
+
+# @dev Revert with an error when attempting to execute a transfer for an
+#      item that does not have an ERC20/721/1155 item type.
+# error InvalidItemType();
+
+# @dev Revert with an error when attempting to update the status of a
+#      channel from a caller that is not the conduit controller.
+# error InvalidController();
+
+# @dev Revert with an error when attempting to execute an 1155 batch
+#      transfer using calldata not produced by default ABI encoding or with
+#      different lengths for ids and amounts arrays.
+# error Invalid1155BatchTransferEncoding();
