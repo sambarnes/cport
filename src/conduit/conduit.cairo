@@ -135,3 +135,16 @@ func execute{
     # TODO
     return (magic_value=1234)
 end
+
+
+# @dev Internal function to transfer a given item.
+#
+# @param item     The item to transfer, including an amount and recipient.
+func _transfer{
+        syscall_ptr : felt*,
+        pedersen_ptr : HashBuiltin*,
+        range_check_ptr
+    }(item : ConduitTransfer):
+    # TODO
+    return ()
+end

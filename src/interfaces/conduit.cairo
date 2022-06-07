@@ -26,8 +26,8 @@ namespace ConduitInterface:
     # @return magicValue A magic value indicating that the transfers were
     #                    performed successfully.
     func execute(
-        conduit_transfers_len: felt,
-        conduit_transfers: ConduitTransfer*
+        transfers_len: felt,
+        transfers: ConduitTransfer*
     ) -> (magic_value: felt):
     end
     
